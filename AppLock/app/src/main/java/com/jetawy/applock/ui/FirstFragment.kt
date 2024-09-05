@@ -1,6 +1,9 @@
 package com.jetawy.applock.ui
 
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,10 +29,24 @@ class FirstFragment : Fragment() {
     ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+
+
+        val packageManager = requireActivity().packageManager
+        val installedApps = getInstalledApps(packageManager)
+
+        for (appInfo in installedApps) {
+            val appName = appInfo.loadLabel(packageManager).toString()
+            val packageName = appInfo.packageName
+
+            Log.e("the apps ", "$appName , $appInfo" )
+            // Do something with the app name and package name
+        }
         return binding.root
 
     }
-
+    fun getInstalledApps(packageManager: PackageManager): List<ApplicationInfo> {
+        return packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
