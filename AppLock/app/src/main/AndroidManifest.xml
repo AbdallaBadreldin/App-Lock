@@ -8,13 +8,12 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,12 +24,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppLock"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppLock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".ui.services.AppService"
             android:enabled="true"
             android:exported="false"
-            android:stopWithTask="false"
-            android:foregroundServiceType="systemExempted"/>
+            android:foregroundServiceType="systemExempted"
+            android:stopWithTask="false" />
 
         <activity
             android:name=".ui.MainActivity"
