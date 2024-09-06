@@ -46,4 +46,12 @@
     <string name="welcome_fragment_label" translatable="false">welcome_fragment_label</string>
     <string name="createpattern_label" translatable="false">CreatePattern_label</string>
     <string name="createdigitpin_label" translatable="false">CreateDigitPin_label</string>
+
+    <!-- res/values/strings.xml -->
+        <string-array name="passcode_options">
+            <item>4-Digit PIN</item>
+            <item>6-Digit PIN</item>
+            <item>Pattern</item>
+        </string-array>
+
 </resources>

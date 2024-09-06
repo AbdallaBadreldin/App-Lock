@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.jetawy.applock.R
 import com.jetawy.applock.databinding.FragmentCreatePinBinding
 
@@ -19,13 +23,14 @@ class CreateDigitPin : Fragment() {
     private val binding get() = _binding!!
 
     private var pin = ""
-    private val maxPinNumbers = 4
+    private var maxPinNumbers = 6
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         _binding = FragmentCreatePinBinding.inflate(inflater, container, false)
+        setupSpinner()
 
 
 
@@ -47,12 +52,68 @@ class CreateDigitPin : Fragment() {
         binding.imageView9.setOnClickListener { addNumberToPin(9) }
         binding.imageViewDelete.setOnClickListener { removeNumberFromPin() }
         binding.buttonCreate.setOnClickListener { checkPinAndMoveNext() }
+        binding.spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            // An item was selected. You can retrieve the selected item using
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        maxPinNumbers = 6
+                        removeAllCircles()
+                    }
 
+                    1 -> {
+                        maxPinNumbers = 4
+                        removeAllCircles()
+                    }
+
+                    else -> {
+                        goToPatternFragment()
+                        parent?.setSelection(0)
+                    }
+                    // ... and so on
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+//        just do the nathing
+            }
+        }
+    }
+
+    private fun goToPatternFragment() {
+        val action = CreateDigitPinDirections.actionCreateDigitPinToCreatePattern()
+        findNavController().navigate(action)
+    }
+
+    private fun setupSpinner() {
+        // Initialize the Spinner
+        val spinner = binding.spinner
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.passcode_options, // The array we defined in strings.xml
+            android.R.layout.simple_spinner_item // Default layout for the spinner
+        )
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // Apply the adapter to the spinner
+        spinner.adapter = adapter
+
+        // (Optional) Set a default selection if needed
+        spinner.setSelection(1) // Example: Set default to "6-Digit PIN"
     }
 
     private fun addNumberToPin(number: Int) {
         //check if 6 or 4
-        if (pin.length < maxPinNumbers) {
+        if (pin.length-1 <= maxPinNumbers) {
             pin += number
             addCircle()
         }
@@ -91,6 +152,12 @@ class CreateDigitPin : Fragment() {
         if (circleContainer.childCount > 0) {
             circleContainer.removeViewAt(circleContainer.childCount - 1)
         }
+    }
+
+    fun removeAllCircles() {
+        val circleContainer = binding.circleContainer
+        circleContainer.removeAllViews()
+        pin =""
     }
 
     private fun checkPinAndMoveNext() {
