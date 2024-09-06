@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.jetawy.applock.databinding.FragmentWelcomeBinding
 
 /**
@@ -36,9 +37,13 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.imageViewPattern.setOnClickListener {
-//            val action  = FragmentWelcomeDirections.action
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToCreatePattern()
+            findNavController().navigate(action)
         }
-        binding.imageViewDigitPin.setOnClickListener { }
+        binding.imageViewDigitPin.setOnClickListener {
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToCreateDigitPin()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

@@ -24,6 +24,8 @@ class CreatePattern : Fragment() {
 
 
 
+
+
         return binding.root
 
     }
