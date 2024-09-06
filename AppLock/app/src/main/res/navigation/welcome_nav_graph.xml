@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcome_nav_graph"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.jetawy.applock.ui.welcome.WelcomeFragment"
+        android:label="@string/welcome_fragment_label"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_WelcomeFragment_to_createPattern"
+            app:destination="@id/createPattern" />
+        <action
+            android:id="@+id/action_WelcomeFragment_to_createDigitPin"
+            app:destination="@id/createDigitPin" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPattern"
+        android:name="com.jetawy.applock.ui.welcome.CreatePattern"
+        android:label="@string/createpattern_label" />
+    <fragment
+        android:id="@+id/createDigitPin"
+        android:name="com.jetawy.applock.ui.welcome.CreateDigitPin"
+        android:label="@string/createdigitpin_label" />
+</navigation>

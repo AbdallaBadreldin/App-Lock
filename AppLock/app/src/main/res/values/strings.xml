@@ -43,4 +43,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="welcome_fragment_label" translatable="false">welcome_fragment_label</string>
+    <string name="createpattern_label" translatable="false">CreatePattern_label</string>
+    <string name="createdigitpin_label" translatable="false">CreateDigitPin_label</string>
 </resources>
