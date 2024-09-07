@@ -49,8 +49,8 @@
 
     <!-- res/values/strings.xml -->
     <string-array name="passcode_options">
-        <item>4-Digit PIN</item>
         <item>6-Digit PIN</item>
+        <item>4-Digit PIN</item>
         <item>Pattern</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->

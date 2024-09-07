@@ -15,13 +15,13 @@
         android:text="set passcode"
         android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/spinner"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@+id/create4Digit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_steps" />
 
     <TextView
         android:id="@+id/create4Digit"
@@ -73,7 +73,10 @@
         android:id="@+id/pattern_lock_view"
         style="@style/PatternLockView.JDStyle"
         android:layout_width="match_parent"
+        android:animationCache="true"
         android:layout_height="wrap_content"
+        android:scrollbarFadeDuration="70000"
+        app:plv_errorDuration="700000"
         app:layout_constraintBottom_toTopOf="@+id/button_create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +90,8 @@
         android:contentDescription="create"
         android:text="create"
         android:textAllCaps="false"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:textColor="#3A93D3"
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

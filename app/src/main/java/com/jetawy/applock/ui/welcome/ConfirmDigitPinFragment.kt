@@ -1,11 +1,11 @@
 package com.jetawy.applock.ui.welcome
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.jetawy.applock.R
 import com.jetawy.applock.databinding.FragmentCreatePinBinding
+import com.jetawy.applock.ui.MainActivity
 
 
 class ConfirmDigitPinFragment : Fragment() {
@@ -23,9 +24,9 @@ class ConfirmDigitPinFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    val args: ConfirmDigitPinFragmentArgs by navArgs()
+    private val args: ConfirmDigitPinFragmentArgs by navArgs()
     private var pin = ""
-    private var maxPinNumbers = args.pin.length
+    private var maxPinNumbers = 6
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,8 +34,6 @@ class ConfirmDigitPinFragment : Fragment() {
 
         _binding = FragmentCreatePinBinding.inflate(inflater, container, false)
         setupSpinner()
-        binding.imageView3.setImageResource(R.drawable.one_two_steps_two_selected)
-        binding.spinner.setSelection(2)
 
         return binding.root
 
@@ -54,38 +53,41 @@ class ConfirmDigitPinFragment : Fragment() {
         binding.imageView9.setOnClickListener { addNumberToPin(9) }
         binding.imageViewDelete.setOnClickListener { removeNumberFromPin() }
         binding.buttonCreate.setOnClickListener { checkPinAndMoveNext() }
-        binding.spinner.onItemSelectedListener = object : OnItemSelectedListener {
-            // An item was selected. You can retrieve the selected item using
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                when (position) {
-                    0 -> {
-                        maxPinNumbers = 6
-                        gotoCreateDigitPin()
-                    }
+        binding.imageViewSteps.setImageResource(R.drawable.one_two_steps_two_selected)
 
-                    1 -> {
-                        maxPinNumbers = 4
-                        gotoCreateDigitPin()
+        maxPinNumbers = args.pin.length
+        /*    binding.spinner.onItemSelectedListener = object : OnItemSelectedListener {
+                // An item was selected. You can retrieve the selected item using
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    when (position) {
+                        0 -> {
+                            maxPinNumbers = 6
+                            gotoCreateDigitPin()
+                        }
 
-                    }
+                        1 -> {
+                            maxPinNumbers = 4
+                            gotoCreateDigitPin()
 
-                    else -> {
-                        goToPatternFragment()
-                        parent?.setSelection(0)
+                        }
+
+                        else -> {
+                            goToPatternFragment()
+                            parent?.setSelection(0)
+                        }
+                        // ... and so on
                     }
-                    // ... and so on
                 }
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-//        just do the na-thing
-            }
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+    //        just do the na-thing
+                }
+            }*/
     }
 
     private fun gotoCreateDigitPin() {
@@ -115,13 +117,15 @@ class ConfirmDigitPinFragment : Fragment() {
         // Apply the adapter to the spinner
         spinner.adapter = adapter
 
-        // (Optional) Set a default selection if needed
-        spinner.setSelection(1) // Example: Set default to "6-Digit PIN"
+        if (args.pin.length == 6)
+            binding.spinner.setSelection(0)
+        else
+            binding.spinner.setSelection(1)
     }
 
     private fun addNumberToPin(number: Int) {
         //check if 6 or 4
-        if (pin.length - 1 <= maxPinNumbers) {
+        if (pin.length < maxPinNumbers) {
             pin += number
             addCircle()
         }
@@ -170,8 +174,14 @@ class ConfirmDigitPinFragment : Fragment() {
 
     private fun checkPinAndMoveNext() {
         if (pin.length == maxPinNumbers && pin == args.pin) {
-        //save the pin and go to the next fragment
-
+            //save the pin and go to the next fragment
+            val sharedPreferences =
+                requireContext().getSharedPreferences("main_preferences", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("pin", pin)
+            editor.apply()
+            startActivity(Intent(requireActivity(), MainActivity::class.java))
+            requireActivity().finish()
         }
     }
 

@@ -109,12 +109,12 @@ class CreateDigitPin : Fragment() {
         spinner.adapter = adapter
 
         // (Optional) Set a default selection if needed
-        spinner.setSelection(1) // Example: Set default to "6-Digit PIN"
+        spinner.setSelection(0) // Example: Set default to "6-Digit PIN"
     }
 
     private fun addNumberToPin(number: Int) {
         //check if 6 or 4
-        if (pin.length - 1 <= maxPinNumbers) {
+        if (pin.length  < maxPinNumbers) {
             pin += number
             addCircle()
         }

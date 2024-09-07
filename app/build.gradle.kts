@@ -35,7 +35,7 @@ android {
         debug {
             ndk.debugSymbolLevel = "FULL"
 //            ndk.abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
-            isDebuggable = false
+            isDebuggable = true
             isShrinkResources = true
             isMinifyEnabled = true
             proguardFiles(
@@ -73,4 +73,6 @@ dependencies {
     implementation(libs.sdp.android)
 
     implementation ("io.github.itsxtt:pattern-lock:0.2.0")
+//    implementation ("me.fingerart.android:patternLockView:1.1.1")
+//    implementation ("com.reginald:patternlock:2.0.0")
 }
