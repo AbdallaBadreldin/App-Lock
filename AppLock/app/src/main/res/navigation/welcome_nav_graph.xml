@@ -20,17 +20,43 @@
     <fragment
         android:id="@+id/createPattern"
         android:name="com.jetawy.applock.ui.welcome.CreatePattern"
-        android:label="@string/createpattern_label" >
+        android:label="@string/createpattern_label">
         <action
             android:id="@+id/action_createPattern_to_createDigitPin"
+            app:destination="@id/createDigitPin" />
+        <action
+            android:id="@+id/action_createPattern_to_confirmDigitPinFragment"
+            app:destination="@id/confirmDigitPinFragment" />
+        <action
+            android:id="@+id/action_createPattern_to_confirmDigitPinFragment2"
+            app:destination="@id/confirmDigitPinFragment" />
+        <action
+            android:id="@+id/action_createPattern_to_createDigitPin2"
             app:destination="@id/createDigitPin" />
     </fragment>
     <fragment
         android:id="@+id/createDigitPin"
         android:name="com.jetawy.applock.ui.welcome.CreateDigitPin"
-        android:label="@string/createdigitpin_label" >
+        android:label="@string/createdigitpin_label">
         <action
             android:id="@+id/action_createDigitPin_to_createPattern"
             app:destination="@id/createPattern" />
+        <action
+            android:id="@+id/action_createDigitPin_to_confirmDigitPinFragment"
+            app:destination="@id/confirmDigitPinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmDigitPinFragment"
+        android:name="com.jetawy.applock.ui.welcome.ConfirmDigitPinFragment"
+        android:label="ConfirmDigitPinFragment">
+        <action
+            android:id="@+id/action_confirmDigitPinFragment_to_createPattern"
+            app:destination="@id/createPattern" />
+        <action
+            android:id="@+id/action_confirmDigitPinFragment_to_createDigitPin"
+            app:destination="@id/createDigitPin" />
+        <argument
+            android:name="pin"
+            app:argType="string" />
     </fragment>
 </navigation>

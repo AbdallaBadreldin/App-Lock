@@ -60,7 +60,7 @@
     <LinearLayout
         android:id="@+id/circleContainer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_25sdp"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="horizontal"
@@ -185,7 +185,7 @@
         android:id="@+id/button_create"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/rounded_white_button"
         android:contentDescription="create"
         android:text="create"
         android:textAllCaps="false"

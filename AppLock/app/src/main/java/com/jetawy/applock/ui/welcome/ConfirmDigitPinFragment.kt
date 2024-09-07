@@ -1,7 +1,6 @@
 package com.jetawy.applock.ui.welcome
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,19 +11,21 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.jetawy.applock.R
 import com.jetawy.applock.databinding.FragmentCreatePinBinding
 
-class CreateDigitPin : Fragment() {
+
+class ConfirmDigitPinFragment : Fragment() {
 
     private var _binding: FragmentCreatePinBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    val args: ConfirmDigitPinFragmentArgs by navArgs()
     private var pin = ""
-    private var maxPinNumbers = 6
+    private var maxPinNumbers = args.pin.length
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,8 +33,8 @@ class CreateDigitPin : Fragment() {
 
         _binding = FragmentCreatePinBinding.inflate(inflater, container, false)
         setupSpinner()
-
-
+        binding.imageView3.setImageResource(R.drawable.one_two_steps_two_selected)
+        binding.spinner.setSelection(2)
 
         return binding.root
 
@@ -64,12 +65,13 @@ class CreateDigitPin : Fragment() {
                 when (position) {
                     0 -> {
                         maxPinNumbers = 6
-                        removeAllCircles()
+                        gotoCreateDigitPin()
                     }
 
                     1 -> {
                         maxPinNumbers = 4
-                        removeAllCircles()
+                        gotoCreateDigitPin()
+
                     }
 
                     else -> {
@@ -81,9 +83,14 @@ class CreateDigitPin : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-//        just do the nathing
+//        just do the na-thing
             }
         }
+    }
+
+    private fun gotoCreateDigitPin() {
+        val action = CreateDigitPinDirections.actionCreateDigitPinToCreatePattern()
+        findNavController().navigate(action)
     }
 
     private fun goToPatternFragment() {
@@ -129,12 +136,12 @@ class CreateDigitPin : Fragment() {
 
 
     // Function to add a circle dynamically
-    fun addCircle() {
+    private fun addCircle() {
         val circleContainer = binding.circleContainer
         // Create a new ImageView
         val circle = ImageView(requireContext())
         // Set the circle drawable
-        circle.setImageResource(R.drawable.empty_circle)
+        circle.setImageResource(R.drawable.filled_circle)
 
         // Set layout params for the circle (including margin)
         val params = LinearLayout.LayoutParams(
@@ -162,16 +169,10 @@ class CreateDigitPin : Fragment() {
     }
 
     private fun checkPinAndMoveNext() {
-        Log.e("createDigitPin length", pin.length.toString())
-        Log.e("createDigitPin maxPinNumbers", maxPinNumbers.toString())
-        if (pin.length == maxPinNumbers) {
-            goToConfirmDigitPin()
+        if (pin.length == maxPinNumbers && pin == args.pin) {
+        //save the pin and go to the next fragment
+            
         }
-    }
-
-    private fun goToConfirmDigitPin() {
-        val action = CreateDigitPinDirections.actionCreateDigitPinToConfirmDigitPinFragment(pin)
-        findNavController().navigate(action)
     }
 
 
