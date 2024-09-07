@@ -6,7 +6,8 @@ plugins {
 
 buildscript {
     repositories {
-        // ... other repositories
+        mavenCentral()
+
     }
     dependencies {
         // ... other dependencies

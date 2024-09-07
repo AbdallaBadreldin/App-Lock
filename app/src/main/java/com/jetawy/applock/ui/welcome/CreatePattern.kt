@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.itsxtt.patternlock.PatternLockView
 import com.jetawy.applock.databinding.FragmentCreatePatternBinding
 
 class CreatePattern : Fragment() {
@@ -28,6 +29,28 @@ class CreatePattern : Fragment() {
 
         return binding.root
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.patternLockView.setOnPatternListener(object : PatternLockView.OnPatternListener {
+            override fun onStarted() {
+                super.onStarted()
+            }
+
+            override fun onProgress(ids: ArrayList<Int>) {
+                super.onProgress(ids)
+            }
+
+            override fun onComplete(ids: ArrayList<Int>): Boolean {
+                /*
+                 * A return value required
+                 * if the pattern is not correct and you'd like change the pattern to error state, return false
+                 * otherwise return true
+                 */
+                return true
+            }
+        })
     }
 
     override fun onDestroyView() {

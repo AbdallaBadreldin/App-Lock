@@ -72,4 +72,5 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.sdp.android)
 
+    implementation ("io.github.itsxtt:pattern-lock:0.2.0")
 }

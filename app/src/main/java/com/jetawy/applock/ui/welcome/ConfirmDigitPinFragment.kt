@@ -171,10 +171,9 @@ class ConfirmDigitPinFragment : Fragment() {
     private fun checkPinAndMoveNext() {
         if (pin.length == maxPinNumbers && pin == args.pin) {
         //save the pin and go to the next fragment
-            
+
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
