@@ -50,10 +50,14 @@ class CreatePattern : Fragment() {
                  * if the pattern is not correct and you'd like change the pattern to error state, return false
                  * otherwise return true
                  */
-
+goToConfirmPatternFragment()
                 return true
             }
         })
+    }
+
+    private fun goToConfirmPatternFragment() {
+        TODO("Not yet implemented")
     }
 
     private fun setupSpinner() {
